@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "MyFirstConnection",
+  "namespace": "",
+  "sfdcLoginUrl": "https://empathetic-unicorn-v8ulqb-dev-ed.my.salesforce.com/",
+  "sourceApiVersion": "52.0"
+}
