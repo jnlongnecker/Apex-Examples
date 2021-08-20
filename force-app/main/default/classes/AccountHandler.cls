@@ -21,7 +21,7 @@ public class AccountHandler {
     }
     
     // This would contain your complex validation logic
-    private static Boolean IsValid(Account currAccount) {
+    @testVisible private static Boolean IsValid(Account currAccount) {
         
         // Simple validation logic should be handled in a validation rule
         String name = currAccount.name;
