@@ -1,0 +1,31 @@
+<!-- We use the page tag to define our VF Page. Additional attributes: controller, renderAs -->
+<apex:page standardController="Account" recordSetVar="myAccounts" extensions="BasicExtension">
+    
+    <!-- We can reference Static Resources using the $Resources global variable -->
+    <apex:stylesheet value="{!$Resource.DemoStyles}" />
+    
+    <!-- The form tag is required for interactions with the database -->
+    <apex:form >
+        
+        <apex:pageBlock >
+            
+            <!-- We can use the pageBlockButtons to place buttons at the start and end of the page block -->
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!Previous}" value="Previous" />
+                <apex:commandButton action="{!Next}" value="Next" />
+                <apex:commandButton action="{!CustomFunction}" value="Next" />
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!myAccounts}" var="acc">
+                <apex:column value="{!acc.name}" />
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+        
+        <!-- The detail tag can show a record detail page -->
+        <apex:detail />
+        
+    </apex:form>
+    
+    <apex:image id="logo" url="{!$Resource.SalesforceLogo}" alt="Salesforce Logo" />
+</apex:page>

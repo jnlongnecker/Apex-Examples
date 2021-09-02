@@ -1,0 +1,193 @@
+<!-- All Visualforce pages must be contained within an <apex:page > tag -->
+<!-- We use a Standard Controller here to utilize default functionality to display account records -->
+<apex:page standardController="Account" extensions="DemoExtension">
+    
+    <!-- A form tag allows for saving to the database -->
+    <apex:form >
+        <apex:pageBlock title="Input/Output Tags">
+            <p>This block is wrapped in a form tag, allowing for saving to the database.</p>
+            <p>inputField tags allow for seeing and editing record information.</p>
+            
+            <!-- inputField tags allow for seeing and editing record information -->
+            <apex:inputField value="{!myAccount.name}" />
+            <apex:inputField value="{!myAccount.accountNumber}" />
+            <apex:inputField value="{!myAccount.type}" />
+            <br />
+            
+            <p>outputField tags allow for only seeing record information.</p>
+            
+            <!-- outputField tags allow for only seeing record information -->
+            <apex:outputField value="{!myAccount.annualRevenue}" />
+            
+            <!-- pageBlockButtons have buttons appear at the top and bottom of a pageBlock -->
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" />
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+        
+        <!-- The page block indicates a block of data and allows other pageBlock* tags to be used -->
+        <apex:pageBlock title="Tables">
+            
+            <p>Tables can store up to 10,000 records (if read-only)</p>
+            <p>This table is styled because it's creating using a pageBlockTable.</p>
+            
+            <!-- pageBlockTable has default styling with it as a part of the pageBlock -->
+            <apex:pageBlockTable value="{!myAccount.Contacts}" var="con">
+                <apex:column value="{!con.name}" />
+            </apex:pageBlockTable>
+            <p>This table has no styling because it's created using a dataTable.</p>
+            
+            <!-- dataTable has no default styling -->
+            <apex:dataTable value="{!myAccount.Contacts}" var="con">
+                <apex:column value="{!con.Name}" />
+            </apex:dataTable>
+        </apex:pageBlock>
+        
+        <apex:actionRegion >
+        <apex:pageBlock title="Data Binding">
+            <apex:outputPanel id="db-1">
+                <p>Data binding is the 2 way street of modifying data in a controller and having those changes be reflected on both ends.</p>
+                
+                <input value="{!myAccount.name}"><apex:actionSupport event="onchange" reRender="db-1" /></input>
+                <apex:inputField value="{!myAccount.name}" ><apex:actionSupport event="onchange" reRender="db-1" /></apex:inputField>
+                <apex:outputField value="{!myAccount.name}" />
+            
+                <p>We can also see this value getting updated from a custom get method: "{!comboValue}"</p>
+            </apex:outputPanel>
+            <hr />
+            <apex:outputPanel id="db-2">
+                <p>Now see the difference using a primitive value, like a string.</p>
+                
+                <input value = "{!primValue}" ><apex:actionSupport event="onchange" reRender="db-2" /></input><br />
+            	<apex:inputText value="{!primValue}" ><apex:actionSupport event="onchange" reRender="db-2" /></apex:inputText><br />
+                <apex:outputText value="{!primValue}" />
+            
+                <p>
+                    Primitives are passed by value, so unless we use the inputText tag, no actual data binding takes place here.
+                    We'll talk about how I'm getting the page to rerender later in the document.
+                </p>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        </apex:actionRegion>
+        
+        <apex:pageBlock title="Action Binding">
+            <p>Action Binding is linking a controller method to be activated by the VF page.</p>
+            
+            <apex:commandButton action="{!CustomAction}" value="Custom Action" />
+            <p>{!guitarist}</p>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Wrapper Classes">
+            <p>Wrapper classes allow for more information to be captured in a table than sObject fields</p>
+            
+            <apex:pageBlockTable value="{!wrappedContacts}" var="wrapped">
+                <apex:column value="{!wrapped.contactNumber}" headerValue="Index" />
+                <apex:column value="{!wrapped.wrappedContact.name}" headerValue="Contact Name" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Inline Editing">
+            <p>Using the inlineEditSupport tag inside of an outputField tag allows use to double-click on the element to edit it.</p>
+            
+            <apex:pageBlockTable value="{!wrappedContacts}" var="wrapped">
+                <apex:column value="{!wrapped.contactNumber}" headerValue="Index" />
+                <apex:column headerValue="Contact Full Name" >
+                    <apex:outputField value="{!wrapped.wrappedContact.name}">
+                        <apex:inlineEditSupport />
+                    </apex:outputField>
+                </apex:column>
+                <apex:column headerValue="Contact First Name" >
+                    <apex:outputField value="{!wrapped.wrappedContact.firstName}">
+                        <apex:inlineEditSupport />
+                    </apex:outputField>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            <p>
+                Note that this doesn't work on read-only fields like Name on Contact. Allowing editing reduces the number of values that
+                can be displayed to 1,000.
+            </p>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Re-Rendering and Action Region">
+            <apex:actionRegion >
+                <apex:outputPanel id="refresh-this">
+                    <apex:outputText >{!guitarist}</apex:outputText>
+                    
+                    <p>
+                        This section of the document is enclosed in an actionRegion tag, so it gets sent to the server when an event occurs.
+                        Used in combination with the rerender attribute, only this is sent and rerendered when the button is clicked.
+                    </p>
+                    <apex:commandButton action="{!CustomAction}" value="Refresh" rerender="refresh-this" />
+                    
+                </apex:outputPanel>
+            </apex:actionRegion>
+            <apex:outputPanel >
+                <p>
+                    This section of the document is outside of an actionRegion tag, so the whole document gets sent to the server when an event
+                    occurs. This is less efficient, but the same visual result is had.
+                </p>
+                <apex:commandButton action="{!CustomAction}" value="Refresh" rerender="refresh-this" />
+            </apex:outputPanel>
+            
+            <apex:actionRegion >
+                <apex:outputPanel id="support-refresh">
+                    <p>
+                        This section is also composed of an actionRegion, but also includes an actionSupport tag within this tag.
+                        The event that is being listened for is the onmouseover, so this section will refresh when the mouse is hovered.
+                        <apex:actionSupport event="onmouseover" rerender="support-refresh" />
+                        <br />
+                        {!guitarist}
+                    </p>
+                </apex:outputPanel>
+            </apex:actionRegion>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="The View State" >
+            <p>
+                The view state is the hidden size of the VF page as it currently exists with all the data on it, elements on it, and values
+                stored within the controller. Reducing this means better performance. We do this through a few tools: the transient keyword,
+                limiting the form and inputField tags, and making sure we aren't querying for more than we need or using unneeded elements.
+                Our View State size limit is 170KB.
+            </p>
+            <p>
+                There are 2 other tools we can use: lazy loading and outputLink to change pages instead of commandLink or commandButton.
+                So our performance boosting tools are: actionRegion, outputLink, and lazy loading. <br />
+                Our view state tools are the transient keyword, conservative use of form and inputField tags, and ensuring we only use
+                what we need.
+            </p>
+        </apex:pageBlock>
+		<!-- End View State Block -->
+		
+		<apex:actionRegion >
+		<apex:pageBlock title="Dyanamic Components" id="dynamic" >
+			<p>
+                Sometimes, we don't want to display a VF component or maybe we want to display a different component based on some
+                logic we decide. We can do this using dynamic components.
+            </p>
+            
+            <apex:inputText value="{!value}" ><apex:actionSupport event="onchange" rerender="dynamic" /></apex:inputText> <br />
+            <apex:dynamicComponent componentValue="{!dynamic}" />
+            
+            <p>
+                This can give you control over when to create a component, as you can return a null component to not instantiate anything.
+            </p>
+		</apex:pageBlock>
+		</apex:actionRegion>
+		<!-- End Dynamic Block -->
+
+		<apex:pageBlock title="Cross Site Scripting (XSS)">
+			<p>
+                The main vulnerability at this point to our Visualforce page is an attack called Cross Site Scripting. This is where
+                someone injects a script into some input that is run for other users. It occurs when inputs are not properly cleaned,
+                especially in sites where one user can input information that is then displayed to another user. VF components have
+                functionality that cleans our inputs for us, so be sure to use VF components where possible. However, setting the 
+                escape attribute to false on one of these components turns off this cleaning. Don't do this :)
+            </p>
+		</apex:pageBlock>
+		<!-- End XSS Block -->
+
+    </apex:form>
+</apex:page>
