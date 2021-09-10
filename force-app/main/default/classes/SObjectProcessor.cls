@@ -6,7 +6,6 @@
 // We have our base class as abstract as it will be extended and contains an abstract method
 public abstract class SObjectProcessor {
     
-    
     // We would like to make sure this value only gets incremented when a certain method is called, 
     // so we make this a private instance variable
     private Integer internalCounter = 0;

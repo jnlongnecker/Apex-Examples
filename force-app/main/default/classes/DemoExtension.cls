@@ -20,7 +20,7 @@ public with sharing class DemoExtension {
         if (currPage.getParameters().get('id') == null) {
             try {
                 myAccount = [SELECT (SELECT name, lastName, firstName FROM Contacts), name, annualRevenue, type, accountNumber 
-                             FROM Account LIMIT 1 OFFSET 4];
+                             FROM Account LIMIT 1];
             }
             catch(System.QueryException e) {
                 myAccount = new Account(name = 'Demo Account', annualRevenue = 12543265, type = 'Customer - Direct', accountNumber = '1');

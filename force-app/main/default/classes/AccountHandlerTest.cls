@@ -1,26 +1,24 @@
 // In order to deploy Apex to your org or to put it in a package for the appExchange, your code coverage
-// Must be at least 75% for any apex classes
-// Must be at least 75% average overall code coverage
-// This metric does not include test classes
+// Must be at least 75% for all apex classes
+// This metric does not include test clases
 // Triggers must have at least 1% code coverage
 
 // All test methods begin with the @isTest annotation
 // @isTest(SeeAllData=true) uses org data [bad practice]
-// Test classes can be private, public or global
 @isTest 
 public class AccountHandlerTest {
     
     @testSetup
     public static void SetupTests() {
         
-        // You can only have 1 @testSetup per class
+        // You can only have 1 per class
         // Disabled if the class or any class methods have @isTest(SeeAllData=true)
         // Run once before all test methods and changes to the data is rolled back after the method completes
         // This makes them the most efficient way of creating and using test data
         
         // Here, we create our testing data
         List<Account> accountsToInsert = new List<Account>();
-        for(Integer num = 0; num < 151; num++) {
+        for(Integer num = 0; num < 25; num++) {
             accountsToInsert.add(new Account(name = 'Test Account ' + num));
         }
         
@@ -30,7 +28,6 @@ public class AccountHandlerTest {
         // Triggers will still fire on DML statements
     }
     
-    // Test methods can be private, public, or global and must be static
     @isTest
     public static void TP_IsValid() {
         
@@ -136,7 +133,7 @@ public class AccountHandlerTest {
     
     @isTest
     public static void TRU_ValidateAccounts() {
-        User admin = [SELECT name FROM User WHERE Profile.name = 'System Administrator' LIMIT 1];
+        User admin = [SELECT name FROM User WHERE Profile.name = 'System Administrator'];
         
         Test.startTest();
         
