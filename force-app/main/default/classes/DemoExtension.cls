@@ -1,5 +1,5 @@
 public with sharing class DemoExtension {
-    
+
     public Account myAccount {get; set;}
     
     transient public String primValue {
@@ -20,7 +20,7 @@ public with sharing class DemoExtension {
         if (currPage.getParameters().get('id') == null) {
             try {
                 myAccount = [SELECT (SELECT name, lastName, firstName FROM Contacts), name, annualRevenue, type, accountNumber 
-                             FROM Account LIMIT 1];
+                             FROM Account LIMIT 1 OFFSET 4];
             }
             catch(System.QueryException e) {
                 myAccount = new Account(name = 'Demo Account', annualRevenue = 12543265, type = 'Customer - Direct', accountNumber = '1');
@@ -71,8 +71,7 @@ public with sharing class DemoExtension {
                 }
         return randomValues[Integer.valueOf(Math.random() * randomValues.size())];
     }
-    
-    
+
     private class Wrap {
         public Integer contactNumber {get; set;}
         public Contact wrappedContact {get; set;}

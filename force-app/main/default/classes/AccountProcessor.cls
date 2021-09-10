@@ -70,6 +70,15 @@ public class AccountProcessor extends SObjectProcessor {
             System.debug(noFieldException.getMessage());
             unprocessedValue = 'No Name Field';
         }
+        catch(System.NullPointerException nullException) {
+            
+        }
+        catch(System.Exception anyOtherException) {
+            
+        }
+        finally {
+            System.debug('Hello World!');
+        }
 
         
         // Since we have done the logic to get the values we need, at the end we have a nicely readable return statement
