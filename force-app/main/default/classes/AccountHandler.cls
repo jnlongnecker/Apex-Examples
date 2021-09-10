@@ -6,8 +6,9 @@ public class AccountHandler {
         
         // Trigger is set up to work for multiple records, no DML or SOQL in loops
         for(Account currAccount : modifiedAccounts) {
-            if(IsNormalAccount(currAccount))
+            if(!MatchesFormat(currAccount)) {
                 continue;
+            }
             if(!IsValid(currAccount)) {
                 currAccount.addError('Account not selected.');
             }
@@ -19,27 +20,18 @@ public class AccountHandler {
         // Which leads us to our final best practice: avoid trigger recursion
     }
     
-    
- 
-    
     // This would contain your complex validation logic
-   	@testVisible
-    private static Boolean IsValid(Account currAccount) {
+    @testVisible private static Boolean IsValid(Account currAccount) {
         
         // Simple validation logic should be handled in a validation rule
         String name = currAccount.name;
         Integer value = Integer.valueOf(name.substring(4));
-        
         return Math.mod(value, 2) == 0 && Math.mod(value, 6) == 0;
     }
     
-    
-    
-    
-    
-    
-    private static Boolean IsNormalAccount(Account currAccount) {
-        return !currAccount.name.Contains('Acc ');
+    private static Boolean MatchesFormat(Account currAccount) {
+        String name = currAccount.name;
+        return name.IndexOf('Acc ') == 0;
     }
     
     
@@ -75,7 +67,7 @@ public class AccountHandler {
 
 /*
 Execute Anonymous Code:
-List<Account> toDelete = [SELECT id FROM Account WHERE name LIKE 'Acc%'];
+List<Account> toDelete = [SELECT id FROM Account WHERE name LIKE 'Acc %'];
 Delete toDelete;
 
 List<Account> myAccounts = new List<Account>();
