@@ -187,3 +187,61 @@ public class MyFirstClass {
         
     }
 }
+
+/*
+    For your reference, the operators and their precedence:
+        == Precedence Group 1 == 
+        --x (Prefix decrement)
+        ++x (Prefix increment)
+        {} (Grouping)
+        () (Grouping)
+
+        == Precedence Group 2 == 
+        new (Object instantiation)
+        (type) (type cast)
+        - (Unary negation)
+        ! (Logical complement)
+        
+        == Precedence Group 3 == 
+        / (Division)
+        * (Multiplication)
+
+        == Precedence Group 4 == 
+        + (Addition)
+        - (Subtraction)
+        
+        == Precedence Group 5 == 
+        instanceof (Polymorphic type comparison)
+        <= (less than or equal)
+        >= (greater than or equal)
+        < (less than)
+        > (greater than)
+        
+        == Precedence Group 6 == 
+        == (equality)
+        != (inequality)
+        
+        == Precedence Group 7 == 
+        || (Logical OR) 
+        
+        == Precedence Group 8 == 
+        && (Logical AND)
+
+        == Precedence Group 9 == 
+        = (assignment)
+        += (addition assignment)
+        -= (subtraction assignment)
+        *= (multiplication assignment)
+        /= (division assignment)
+        &= (and assignment)
+        |= (Or assignment)
+
+  
+
+
+
+
+
+
+
+*/
