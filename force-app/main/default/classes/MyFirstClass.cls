@@ -37,7 +37,7 @@ public class MyFirstClass {
     public Set<Integer> myIntegerSet = new Set<Integer>();
 
     // Maps are a collection of key-value pairs
-    public Map<String, Integer > myStringMap = new Map<String, Integer>();
+    public Map<String, Integer> myStringMap = new Map<String, Integer>();
     
     // Enums are used to represent static choices
     public enum Season { SUMMER, FALL, WINTER, SPRING }
@@ -70,6 +70,8 @@ public class MyFirstClass {
     
     // Enums
 
+    // null
+
     // An initialization block runs before the constructor. This is typically only used in special cases, such as when you must run logic prior to the constructor
     {
         System.debug('Before the constructor!');
@@ -91,7 +93,7 @@ public class MyFirstClass {
         System.debug(myStringMap.get('Key 1'));
         
         Season fall = Season.FALL;
-        System.debug(Season.FALL);
+        System.debug(fall);
     }
     
     // Methods have an access modifier, return type, and signature comprised of the name and parameter list
@@ -174,7 +176,6 @@ public class MyFirstClass {
                 continue;
             }
             System.debug(myStringList[index]);
-            
         }
         
         // Additionally, we can use the enhanced for loop to loop over a list or set
@@ -235,13 +236,4 @@ public class MyFirstClass {
         /= (division assignment)
         &= (and assignment)
         |= (Or assignment)
-
-  
-
-
-
-
-
-
-
 */

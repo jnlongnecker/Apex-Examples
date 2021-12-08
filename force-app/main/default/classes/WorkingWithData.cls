@@ -30,7 +30,7 @@ public class WorkingWithData {
         //   - SELECT name, rating FROM Account ORDER BY rating DESC NULLS LAST
         //   
         // - WITH SECURITY ENFORCED
-        //   - If you don't have access to something in the query, throws an error
+        //   - If you don't have access to something in the query, throws an exception
         //   
         // - FIELDS()
         //   - ALL, STANDARD, CUSTOM
@@ -81,7 +81,7 @@ public class WorkingWithData {
         // Relationship Queries
         // - Parent to Child
         //   - Accounts -> Contacts
-        //   - SELECT name, (SELECT name FROM Contacts) FROM Account
+        //   - SELECT name, (SELECT name FROM Contacts) FROM Account LIMIT 5
         // - Child to Parent
         //   - Contacts -> Accounts
         //   - SELECT name, Account.name FROM Contact
@@ -113,13 +113,30 @@ public class WorkingWithData {
 		 * LIMIT/OFFSET: Works like in SOQL, limits the records returned and offsets the start position
 		 * ORDER BY: Works like in SOQL, reorders the records by a field
 		 * USING: Filter records with a premade list view, like Recently Viewed or My Contacts
-		 * 
-
          */
+
+         List<Account> myAccountList = queryResult[0];
+         List<Contact> myContactList = queryResult[1];
         
          System.debug('Items returned from Account query: ' + queryResult[0].size());
          System.debug('Items reutrned from Contact query: ' + queryResult[1].size());
     }
+
+    /*
+        When to use SOQL
+            You know which object, fields you want to retrieve
+            You want to get a count of the number of records that meet a specific criteria. i.e. where OwnerId = X
+            You want to sort the results as part of the query
+            You want to get data from number, checkbox or date fields
+            You want to get data from a single object or multiple objects that are related to each other (i.e. Accounts and Contacts)
+
+        When to use SOSL
+            You don't specifically know which object or field the data resides in but you need an efficient way to find the records
+            You want to get data from multiple objects and field in the most efficient way - the objects may or may not be related to one another.
+            You are trying to query data in fields that cannot be indexed yet you have a large data set
+
+        Most circumstances will have you use SOQL
+    */
     
     public static void DML() {
         
@@ -133,9 +150,11 @@ public class WorkingWithData {
 
         List<Account> toDelete = [SELECT name FROM Account WHERE name = 'My Test Account'];
         Delete toDelete;
+
+        Insert myNewAccount;
          
         Account toUpdate = [SELECT name, rating FROM Account WHERE name = 'My Test Account' LIMIT 1];
-        toUpdate.rating = 'Hot';
+        toUpdate.rating = 'Cold';
         Update toUpdate;
         
         // Data Manipulation Language
