@@ -1,5 +1,5 @@
 // This processor class is going to take our SObjectProcessor and then get more specific and implement abstract methods
-public class AccountProcessor extends SObjectProcessor {
+public class AccountProcessor extends SObjectProcessor implements Stringify {
     
     // Again we take advantage of constructor chaining to keep our logic in a single place
     public AccountProcessor() {
@@ -71,13 +71,13 @@ public class AccountProcessor extends SObjectProcessor {
             unprocessedValue = 'No Name Field';
         }
         catch(System.NullPointerException nullException) {
-            
+            // Handle NullPointerException
         }
         catch(System.Exception anyOtherException) {
-            
+            // Handle generic exceptions
         }
         finally {
-            System.debug('Hello World!');
+            // Any code we want to always execute goes here
         }
 
         
@@ -114,6 +114,11 @@ public class AccountProcessor extends SObjectProcessor {
             System.debug('There is less than, and can only be ' + num);
         }
     }
+
+    // Notice when we implement the interface method, we do not need to use the override keyword
+    public String StringifyMe() {
+        return CreateOutput();
+    }
 }
 
 /*
@@ -127,7 +132,9 @@ System.debug(sObj.CreateOutput());
 AccountProcessor accProcessor = (AccountProcessor)sObj;
 accProcessor.OnlyOneProcessor();
 
+accProcessor.StringifyMe();
+
 accProcessor = new AccountProcessor(sList);
 
-accProcessor.OnlyOneProcessor();
+accProcessor.OnlyOneProcessor(2);
 */

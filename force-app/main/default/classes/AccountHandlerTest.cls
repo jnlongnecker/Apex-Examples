@@ -96,10 +96,11 @@ public class AccountHandlerTest {
     
     @isTest
     public static void TN_ValidateAccounts() {
-        Test.startTest();
         
         // Not only are we testing with bad data, but we are also testing in bulk as we created 151 accounts
         List<Account> someAccounts = [SELECT name FROM Account];
+        Test.startTest();
+
         AccountHandler.ValidateAccounts(someAccounts);
         
         Integer numValid = 0;
@@ -137,12 +138,12 @@ public class AccountHandlerTest {
     @isTest
     public static void TRU_ValidateAccounts() {
         User admin = [SELECT name FROM User WHERE Profile.name = 'System Administrator' LIMIT 1];
+        List<Account> someAccounts = TestHelper.CreateAccounts(16);
         
         Test.startTest();
         
         // Runs code as a specified user with that user's permissions
         System.runAs(admin) {
-            List<Account> someAccounts = TestHelper.CreateAccounts(16);
             AccountHandler.ValidateAccounts(someAccounts);
             
             Integer numValid = 0;

@@ -3,7 +3,17 @@
     <types>
         <members>MyFirstClass</members>
         <members>WorkingWithData</members>
+        <members>SObjectProcessor</member>
+        <members>AccountProcessor</member>
+        <members>Stringify</member>
+        <members>AccountHandler</member>
+        <members>AccountHandlerTest</member>
+        <members>TestHelper</member>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AccountTrigger</member>
+        <name>ApexTrigger</name>
     </types>
     <version>53.0</version>
 </Package>
