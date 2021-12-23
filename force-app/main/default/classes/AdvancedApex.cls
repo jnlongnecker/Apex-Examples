@@ -1,11 +1,4 @@
 public class AdvancedApex {
-    
-    public static Savepoint revert;
-    
-    // We're going to be playing around with our database, so let's set a savepoint so we can roll back at the end
-    static {
-        revert = Database.setSavepoint();
-    }
 	
     // --- System Namespace Classes ---
     // The System namespace has many, many useful classes for us to use
@@ -46,9 +39,7 @@ public class AdvancedApex {
         // We can also see how many SOQL queries we've issued
         System.debug('Queries Issued: ' + Limits.getQueries());
         
-        // Limits.getSoslQueries() is the SOSL equivalent
-		
-		Database.rollback(revert);        
+        // Limits.getSoslQueries() is the SOSL equivalent       
     }
     
     // -- Database --

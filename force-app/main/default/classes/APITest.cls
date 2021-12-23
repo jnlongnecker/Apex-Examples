@@ -41,3 +41,16 @@ public class APITest {
         System.assertEquals('{"message":"Success!"}', response.getBody());
     }
 }
+
+/*
+    To close things out, let's talk about the built-in, OOTB API services Salesforce has:
+        SOAP API: Create/Read/Update/Delete records
+        REST API: Same, but via REST
+        Apex REST API: Access Apex code
+        Apex SOAP API: Same, but via SOAP
+        Bulk API: Used for loading/deleting large amounts of data
+        Metadata API: Used to access/modify org configurations (we use this one a lot!)
+        Chatter REST API: Used to access Chatter posts/feeds
+        Streaming API: Allows various notifications. Uses Bayeux protocol
+        Tooling API: Used to develop custom SF tools and work with metadata
+*/
