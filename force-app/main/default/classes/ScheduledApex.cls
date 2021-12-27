@@ -46,9 +46,18 @@ public class ScheduledApex implements Schedulable {
      * Some more examples:
      * 			String ex1 = '0 0 9 1 * ?';
      * 			String ex2 = '0 7 * ? 8 2-6';
-     * 			String ex3 = '0 20 16 ? * 2L;
+     * 			String ex3 = '0 20 16 ? * 2L';
      * 			String ex4 = '0 10 12 12W 1/2 ?';
      * 			String ex5 = '0 0 9-17 ? * 2,4,6';
+     *          String ex6 = '0 0 12 ? 11 5#3';
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      * 
      * 
      * 
@@ -76,6 +85,7 @@ public class ScheduledApex implements Schedulable {
      * 			ex3 : The last Monday of every month at 4:20pm.
      * 			ex4 : Every other month starting from January, occuring at 12:10pm on the nearest weekday to the 12th.
      * 			ex5 : Every hour during work hours (9:00am - 5:00pm) on Monday, Wednesday and Friday.
+     *          ex6 : 12:00pm on Thanksgiving
      * 
      */ 
 }

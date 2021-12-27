@@ -27,9 +27,8 @@ public class FutureApex {
     @future(callout=true)
     public static void FutureAndCallouts() {
         
-        // Like with an AJAX request in JS, we can also make callouts via Apex, although there are more steps to the process
+        // Like with the Fetch API in JS, we can also make callouts via Apex, although there are more steps to the process
         // If we don't want to wait, we make the callout in a method marked @future(callout=true), but we could wait
-        // We'll be learning how to actually make a callout later on, so we'll come back to the following syntax:
         HTTP http = new HTTP();
         HttpRequest hRequest = new HttpRequest();
         hRequest.setEndpoint('https://pokeapi.co/api/v2/pokemon/nidoking');

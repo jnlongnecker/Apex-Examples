@@ -9,6 +9,14 @@
         <members>AccountHandler</member>
         <members>AccountHandlerTest</member>
         <members>TestHelper</member>
+        <members>SOAPService</member>
+        <members>SOAPMock</member>
+        <members>SampleWSDLClass</member>
+        <members>AsyncSampleWSDLClass</member>
+        <members>APITest</member>
+        <members>RESTService</member>
+        <members>RESTMock</member>
+        <members>APICallout</member>
         <name>ApexClass</name>
     </types>
     <types>
