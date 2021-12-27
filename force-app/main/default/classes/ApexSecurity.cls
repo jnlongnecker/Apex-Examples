@@ -60,6 +60,7 @@ public with sharing class ApexSecurity {
         newShare.OpportunityAccessLevel = 'Read';
         
         // RowCause is our reason for sharing. We can add more than Manual, but only for Custom Objects
+        // Other RowCause values include: Owner, Rule, and ImplicitChild
         // We have to go into SF Classic to make this change, because we can't have nice things
         newShare.RowCause = Schema.AccountShare.RowCause.Manual; // This can be omitted, as this is the default
         
