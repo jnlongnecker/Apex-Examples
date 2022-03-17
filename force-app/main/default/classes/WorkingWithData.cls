@@ -30,7 +30,7 @@ public class WorkingWithData {
         //   - SELECT name, rating FROM Account ORDER BY rating DESC NULLS LAST
         //   
         // - WITH SECURITY ENFORCED
-        //   - If you don't have access to something in the query, throws an error
+        //   - If you don't have access to something in the query, throws an exception
         //   
         // - FIELDS()
         //   - ALL, STANDARD, CUSTOM
@@ -81,7 +81,7 @@ public class WorkingWithData {
         // Relationship Queries
         // - Parent to Child
         //   - Accounts -> Contacts
-        //   - SELECT name, (SELECT name FROM Contacts) FROM Account
+        //   - SELECT name, (SELECT name FROM Contacts) FROM Account LIMIT 5
         // - Child to Parent
         //   - Contacts -> Accounts
         //   - SELECT name, Account.name FROM Contact
@@ -89,23 +89,73 @@ public class WorkingWithData {
         // Relationship query and filtering query
         // - SELECT name, (SELECT name FROM Contacts) FROM Account WHERE id IN (SELECT accountID from Contact WHERE name LIKE 'a%')
     }
+
+    
+    public void SOSL() {
+        List<List<SObject>> queryResult = [FIND '*0*0*' IN Phone FIELDS RETURNING Account(name, FORMAT(SLAExpirationDate__c)), 
+                       Contact(firstName, lastName, accountID ORDER BY lastName)];
+        /*
+         * SOSL Information:
+         * FIND 'search query': This is what you're looking for. A field you search for has to start with this query
+		 * IN {fields}: This is what fields you will be searching. This can be Name, Email, Phone or All. 
+		 * Default is All, which searches indexed Text, Text Area, or Text Area (Rich) fields as well
+		 * RETURNING: This is where you filter what you want to return. This is optional, but differs by object you want to return
+		 * WITH: This is an optional clause that can include or filter by many things, including:
+		 * 		DATA CATEGORY category: A filter for knowledge article data category
+		 * 		v-- NOT SUPPORTED IN APEX --v
+		 * 		HIGHLIGHT: Highlights the fields that match the search critera
+		 * 		METADATA meta: Returns the specified metadata alongside the query.
+		 * 		PricebookID: Filters by the pricebook id specified 
+		 * 		
+		 * 
+		 * There are more clauses to filter by, here are a few:
+		 * WHERE: Works like in SOQL, only returns records where a condition is met
+		 * LIMIT/OFFSET: Works like in SOQL, limits the records returned and offsets the start position
+		 * ORDER BY: Works like in SOQL, reorders the records by a field
+		 * USING: Filter records with a premade list view, like Recently Viewed or My Contacts
+         */
+
+         List<Account> myAccountList = queryResult[0];
+         List<Contact> myContactList = queryResult[1];
+        
+         System.debug('Items returned from Account query: ' + queryResult[0].size());
+         System.debug('Items reutrned from Contact query: ' + queryResult[1].size());
+    }
+
+    /*
+        When to use SOQL
+            You know which object, fields you want to retrieve
+            You want to get a count of the number of records that meet a specific criteria. i.e. where OwnerId = X
+            You want to sort the results as part of the query
+            You want to get data from number, checkbox or date fields
+            You want to get data from a single object or multiple objects that are related to each other (i.e. Accounts and Contacts)
+
+        When to use SOSL
+            You don't specifically know which object or field the data resides in but you need an efficient way to find the records
+            You want to get data from multiple objects and field in the most efficient way - the objects may or may not be related to one another.
+            You are trying to query data in fields that cannot be indexed yet you have a large data set
+
+        Most circumstances will have you use SOQL
+    */
     
     public static void DML() {
         
-        // Account myNewAccount = new Account(name = 'My Test Account', rating = 'Hot', annualRevenue = 150000000);
-        // System.debug(myNewAccount.id);
-        // Insert myNewAccount;
-        // System.debug(myNewAccount.id);
+        Account myNewAccount = new Account(name = 'My Test Account', rating = 'Hot', annualRevenue = 150000000);
+        System.debug(myNewAccount.id);
+        Insert myNewAccount;
+        System.debug(myNewAccount.id);
         
-        // Contact myNewContact = new Contact(lastName = 'New', accountID = myNewAccount.id);
-        // Insert myNewContact;
+        Contact myNewContact = new Contact(lastName = 'New', accountID = myNewAccount.id);
+        Insert myNewContact;
 
-        // List<Account> toDelete = [SELECT name FROM Account WHERE name = 'My Test Account'];
-        // Delete toDelete;
+        List<Account> toDelete = [SELECT name FROM Account WHERE name = 'My Test Account'];
+        Delete toDelete;
+
+        Insert myNewAccount;
          
-        // Account toUpdate = [SELECT name, rating, active__c FROM Account WHERE name = 'My Test Account' LIMIT 1];
-        // toUpdate.active__c = 'Yes';
-        // Update toUpdate;
+        Account toUpdate = [SELECT name, rating FROM Account WHERE name = 'My Test Account' LIMIT 1];
+        toUpdate.rating = 'Cold';
+        Update toUpdate;
         
         // Data Manipulation Language
         // - This allows us to persist changes to the database
@@ -131,7 +181,7 @@ public class WorkingWithData {
         }
         Insert toInsert;
         
-        // SOQL Queries also have govnernor limits
+        // SOSL and SOQL Queries also have governor limits
         // We should map together records that need to be accessed together
         
         List<Account> myAccounts = [SELECT name, (SELECT name FROM Contacts) FROM Account];
@@ -154,7 +204,7 @@ public class WorkingWithData {
         Database.Rollback(sp1);
         
         // Does not revert ID's
-        // Discard any DML that occurs after the savepoint
+        // Discards any DML that occurs after the savepoint
         // If you rollback to a savepoint that occurs before another savepoint, that point is no longer valid
         // Rolling back to savepoint DOES NOT reset your governor limits
         // Setting a savepoint COUNTS AS A DML OPERATION

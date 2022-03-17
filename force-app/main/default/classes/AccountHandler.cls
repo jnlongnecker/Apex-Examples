@@ -56,13 +56,32 @@ public class AccountHandler {
     private static Contact CreateLinkedContact(Account acc) {
         Contact newContact = new Contact();
         
-        // Common uses of after triggers are to change other objects or access system fields, like ID
+        // Common uses of after triggers are to change other objects or access system fields and IDs
         newContact.firstName = 'Contact for';
         newContact.lastName = acc.name;
         newContact.accountId = acc.id;
         return newContact;
     }
 }
+
+/*
+    When to use what kind of trigger?
+    Before
+        You need to perform complex validation
+        You need to modify/adjust a value before it gets saved
+        You need to do complex calculation of a field that cannot be done in a formula field
+    After
+        You need to access system fields
+        You need to access the ID of your records
+        You need to see the value of your fields before your records are committed
+        You need to check what a field was changed to
+
+    Best Practices of Triggers
+    1. Keep your trigger logicless
+    2. 1 trigger per object
+    3. Bulkify your trigger
+    4. Avoid trigger recursion
+*/
 
 
 /*

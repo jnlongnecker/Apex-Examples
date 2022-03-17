@@ -11,6 +11,9 @@ public abstract class SObjectProcessor {
     // so we make this a private instance variable
     private Integer internalCounter = 0;
     
+    // This unprocessed list we will allow anyone to manipulate how they wish, so it's public.
+    public List<sObject> unprocessedList {get; set;}
+    
     // We set this list to protected so that our child classes can access it
     protected List<sObject> listToProcess {get; 
     set {
@@ -29,9 +32,6 @@ public abstract class SObjectProcessor {
             listToProcess.add(obj.clone(true, true));
         }
     } }
-    
-    // This unprocessed list we will allow anyone to manipulate how they wish, so it's public.
-    public List<sObject> unprocessedList {get; set;}
     
     // Let's say we want to track how many processors we make. We can use an initialization block and a static variable
     // to do so

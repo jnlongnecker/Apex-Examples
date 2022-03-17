@@ -1,0 +1,31 @@
+13:41:02.36 (53804965)|USER_DEBUG|[8]|DEBUG|Unprocessed value: The Trio, Processed value: The Trio, process rank: 1
+Unprocessed value: American Banking Corp., Processed value: American Banking Corp., process rank: 2
+Unprocessed value: Green Pancakes, Processed value: Green Pancakes, process rank: 3
+Unprocessed value: Amplified Pancakes, Processed value: Amplified Pancakes, process rank: 4
+Unprocessed value: Easy Pancakes, Processed value: Easy Pancakes, process rank: 5
+Unprocessed value: Pancakes Diving, Processed value: Pancakes Diving, process rank: 6
+Unprocessed value: Worldwide Pancakes, Processed value: Worldwide Pancakes, process rank: 7
+Unprocessed value: Optimize Pancakes, Processed value: Optimize Pancakes, process rank: 8
+Unprocessed value: Powerhouse Pancakes, Processed value: Powerhouse Pancakes, process rank: 9
+Unprocessed value: Farmers Coop. of Florida, Processed value: Farmers Coop. of Florida, process rank: 10
+Unprocessed value: Acc 0 was selected!, Processed value: Acc 0 was selected!, process rank: 11
+Unprocessed value: Acc 6 was selected!, Processed value: Acc 6 was selected!, process rank: 12
+Unprocessed value: Acc 12 was selected!, Processed value: Acc 12 was selected!, process rank: 13
+Unprocessed value: Acc 18 was selected!, Processed value: Acc 18 was selected!, process rank: 14
+Unprocessed value: Acc 24 was selected!, Processed value: Acc 24 was selected!, process rank: 15
+Unprocessed value: Test Account, Processed value: Test Account, process rank: 16
+Unprocessed value: Edge Communications, Processed value: Edge Communications, process rank: 17
+Unprocessed value: Burlington Textiles Corp of America, Processed value: Burlington Textiles Corp of America, process rank: 18
+Unprocessed value: Pyramid Construction Inc., Processed value: Pyramid Construction Inc., process rank: 19
+Unprocessed value: Dickenson plc, Processed value: Dickenson plc, process rank: 20
+Unprocessed value: Grand Hotels & Resorts Ltd, Processed value: Grand Hotels & Resorts Ltd, process rank: 21
+Unprocessed value: United Oil & Gas Corp., Processed value: United Oil & Gas Corp., process rank: 22
+Unprocessed value: Express Logistics and Transport, Processed value: Express Logistics and Transport, process rank: 23
+Unprocessed value: University of Arizona, Processed value: University of Arizona, process rank: 24
+Unprocessed value: United Oil & Gas, UK, Processed value: United Oil & Gas, UK, process rank: 25
+Unprocessed value: United Oil & Gas, Singapore, Processed value: United Oil & Gas, Singapore, process rank: 26
+Unprocessed value: GenePoint, Processed value: GenePoint, process rank: 27
+Unprocessed value: sForce, Processed value: sForce, process rank: 28
+Unprocessed value: Sample Account for Entitlements, Processed value: Sample Account for Entitlements, process rank: 29
+13:41:02.36 (53944698)|USER_DEBUG|[105]|DEBUG|There is, and can be, only one.
+13:41:02.36 (56447935)|USER_DEBUG|[114]|DEBUG|There is less than, and can only be 2

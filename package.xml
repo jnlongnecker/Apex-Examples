@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>MyFirstClass</members>
+        <members>WorkingWithData</members>
+        <members>SObjectProcessor</member>
+        <members>AccountProcessor</member>
+        <members>Stringify</member>
+        <members>AccountHandler</member>
+        <members>AccountHandlerTest</member>
+        <members>TestHelper</member>
+        <members>SOAPService</member>
+        <members>SOAPMock</member>
+        <members>SampleWSDLClass</member>
+        <members>AsyncSampleWSDLClass</member>
+        <members>APITest</member>
+        <members>RESTService</member>
+        <members>RESTMock</member>
+        <members>APICallout</member>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AccountTrigger</member>
+        <name>ApexTrigger</name>
+    </types>
+    <version>53.0</version>
+</Package>

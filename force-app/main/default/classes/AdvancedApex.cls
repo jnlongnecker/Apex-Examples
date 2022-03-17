@@ -39,8 +39,12 @@ public class AdvancedApex {
         // We can also see how many SOQL queries we've issued
         System.debug('Queries Issued: ' + Limits.getQueries());
         
+<<<<<<< HEAD
         // Limits.getSoslQueries() is the SOSL equivalent
 		      
+=======
+        // Limits.getSoslQueries() is the SOSL equivalent       
+>>>>>>> 84cf130f63e8001ef5cf2641466a229b372ad42e
     }
     
     // -- Database --
