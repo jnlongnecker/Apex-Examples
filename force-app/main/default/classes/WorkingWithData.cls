@@ -41,6 +41,7 @@ public class WorkingWithData {
         // - FIELDS()
         //   - ALL, STANDARD, CUSTOM
         //   - This will respect field level security
+        //   - Only FIELDS(STANDARD) is supported from Apex
         //   - SELECT FIELDS(ALL) FROM Account
         //   
         // - FORMAT()
@@ -94,6 +95,33 @@ public class WorkingWithData {
         //   
         // Relationship query and filtering query
         // - SELECT name, (SELECT name FROM Contacts) FROM Account WHERE id IN (SELECT accountID from Contact WHERE name LIKE 'a%')
+    }
+
+    public static void SOQLFor() {
+        /*
+            A slightly more advanced concept of SOQL is the SOQL for loop. This looks like an enhanced for loop
+            that includes a SOQL query inside of it instead of a particular list. What this is going to do is
+            efficiently query the org for records, and is thus the best way of working with a large amount of records.
+            Records take up a lot of space on the heap, and in order to stay within our memory limitations, whenever
+            possible use a SOQL for loop
+        */
+        for (Account currAccount : [SELECT name, (SELECT name FROM Contacts) FROM Account]) {
+            List<Contact> associatedContacts = currAccount.contacts;
+        }
+
+        /*
+            While the single sObject SOQL for loop above will loop for every single record, the one below is going
+            to retrieve 200 records at a time and store them in the acc200 list. While not a best practice to do so,
+            if you absolutely must use DML inside of a loop this approach is the best in order to stay under
+            governor limits.
+        */
+        for (List<Account> acc200 : [SELECT name, (SELECT name FROM Contacts) FROM Account]) {
+            for (Account currAccount : acc200) {
+
+                // If currAccount.contacts is really big (over 200 contacts) this can cause an error
+                List<Contact> associatedContacts = currAccount.contacts;
+            }
+        }
     }
 
     
