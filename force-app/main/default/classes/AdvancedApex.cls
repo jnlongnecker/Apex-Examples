@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Walking through the Limits, Database, and Schema System Namespace Classes
+*/
+
 public class AdvancedApex {
 	
     // --- System Namespace Classes ---
@@ -39,7 +45,8 @@ public class AdvancedApex {
         // We can also see how many SOQL queries we've issued
         System.debug('Queries Issued: ' + Limits.getQueries());
         
-        // Limits.getSoslQueries() is the SOSL equivalent       
+        // Limits.getSoslQueries() is the SOSL equivalent
+		      
     }
     
     // -- Database --

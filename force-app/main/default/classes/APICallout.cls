@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Demonstrating a callout to the REST Pokeapi
+*/
+
 public class APICallout {
     /*
         REST stands for REpresentational State Transfer and make use of HTTP methods to be interacted

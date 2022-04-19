@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Example SOAP service 
+*/
+
 // A SOAP webservice must be global
 global class SOAPService {
 	

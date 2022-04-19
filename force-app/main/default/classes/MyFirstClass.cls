@@ -1,7 +1,7 @@
 // Your classes that you write should contain a header comment
 /*
     Created by: Jared Longnecker
-    Last Updated: 12/7/2021
+    Last Updated: 03/17/2022
     Description: Introductory Apex topics
 */
 
@@ -28,7 +28,6 @@ public class MyFirstClass {
     
     // Objects/sObjects
     public Account myAccount = new Account();
-    public Floor__c myFloor;
     
     // Lists are an ordered sequence of values
     public List<String> myStringList = new List<String>{'Element 1', 'Element 2'};

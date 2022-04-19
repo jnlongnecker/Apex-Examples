@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Test suite for the AccountHandler class
+*/
+
 // In order to deploy Apex to your org or to put it in a package for the appExchange, your code coverage
 // Must be at least 75% for any apex classes
 // Must be at least 75% average overall code coverage

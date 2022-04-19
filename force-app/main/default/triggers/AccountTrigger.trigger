@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Basic trigger on Accounts
+*/
+
 // Best practice for triggers is to have 1 trigger per object
 // Because of this, we should set them up to be easily added to in the future
 trigger AccountTrigger on Account (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
