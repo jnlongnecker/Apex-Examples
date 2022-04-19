@@ -103,7 +103,9 @@ public class WorkingWithData {
             that includes a SOQL query inside of it instead of a particular list. What this is going to do is
             efficiently query the org for records, and is thus the best way of working with a large amount of records.
             Records take up a lot of space on the heap, and in order to stay within our memory limitations, whenever
-            possible use a SOQL for loop
+            possible use a SOQL for loop. Also because of this efficiency, a SOQL for loop can actually retrieve
+            more than 2,000 records. When it does this, an error will occur if you use an Aggregate Function on such
+            a query since they cannot handle that many records.
         */
         for (Account currAccount : [SELECT name, (SELECT name FROM Contacts) FROM Account]) {
             List<Contact> associatedContacts = currAccount.contacts;
