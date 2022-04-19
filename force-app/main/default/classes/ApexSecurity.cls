@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: A look at enforcing security VIA Apex and sharing records
+*/
+
 public with sharing class ApexSecurity {
 	// Record level security:
 	// - Use sharing keywords on the class

@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Information about working with DML, TCL, SOQL and SOSL
+*/
+
 public class WorkingWithData {
 	// SOQL
 	// - Salesforce Object Query Language

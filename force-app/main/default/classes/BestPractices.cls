@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Best practices for Apex and coding in general. One of those is a header comment!
+*/
+
 public class BestPractices {
     private static Map< String, Schema.SObjectType > objectMap;
     static {

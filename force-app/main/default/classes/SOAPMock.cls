@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Mock for testing SOAP callouts 
+*/
+
 // We only use this for testing, so use @isTest here
 // class and methods must be public or global
 

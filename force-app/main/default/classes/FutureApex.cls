@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Using the @future annotation for asynchronous Apex
+*/
+
 public class FutureApex {
 	// Use case for a @future method:
 	// - Long running method that you want to avoid delaying the transaction

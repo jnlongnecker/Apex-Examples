@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Handler class for the Account Trigger
+*/
+
 public class AccountHandler {
 	
     // In a before trigger, we can modify the records before they are committed

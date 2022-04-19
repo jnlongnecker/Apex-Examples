@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Mock for testing REST callouts 
+*/
+
 // Again in testing, so use @isTest
 // class and methods still must be public or global
 

@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Example REST service 
+*/
+
 // The urlMapping tells us what URL to go to get this resource
 // This one is https://myOrg.my.salesforce.com/services/apexrest/learning/
 @restResource(urlMapping='/learning/')

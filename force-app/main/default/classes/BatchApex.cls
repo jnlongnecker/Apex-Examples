@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: Using the Batchable interface for Batch Apex
+*/
+
 public class BatchApex implements Database.Batchable<sObject>, Database.AllowsCallouts {
     // Use case for Batch Apex:
     // - Working with large amounts of records. Be this:

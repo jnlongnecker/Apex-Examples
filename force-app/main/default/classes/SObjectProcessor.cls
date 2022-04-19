@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: For use with Account Processor for OOP concepts
+*/
+
 // Global - Means that the data can be accessed in any namespace
 // Public - Mean that the data can only be accessed within the same namespace
 // Protected - Means that only the parent and child classes can access the data

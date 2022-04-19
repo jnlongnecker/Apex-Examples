@@ -1,3 +1,9 @@
+/*
+    Created by: Jared Longnecker
+    Last Updated: 03/17/2022
+    Description: For use with SObjectProcessor for OOP principles and Apex Exceptions
+*/
+
 // This processor class is going to take our SObjectProcessor and then get more specific and implement abstract methods
 public class AccountProcessor extends SObjectProcessor implements Stringify {
     
