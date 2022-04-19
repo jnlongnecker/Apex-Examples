@@ -125,16 +125,37 @@ public class WorkingWithData {
             }
         }
     }
+    /*
+        Indexing
+        The reason SOQL is so fast is because Salesforce indexes fields that are commonly filtered on. So, when constructing your queries,
+        you want to filter off of fields that are indexed in order to improve the speed of the query. Fields that are indexed are the 
+        following:
+        - RecordTypeId
+        - CreatedDate
+        - LastModifiedDate
+        - Name fields
+        - Email fields on Contact and Lead
+        - ID fields (includes relationship IDs)
+        - Text, Email, Number or Auto-Number fields marked as an External ID
+        
+        Custom fields can also have an index created for them if they are able to be indexed. All custom fields can be indexed except:
+        - Multi-Select picklists
+        - Text Area (Long)
+        - Text Area (Rich)
+        - Text (Encrypted)
+        - Non-deterministic Formula Fields (formula fields that rely on external values)
+    */
 
     
     public void SOSL() {
-        List<List<SObject>> queryResult = [FIND '*0*0*' IN Phone FIELDS RETURNING Account(name, FORMAT(SLAExpirationDate__c)), 
-                       Contact(firstName, lastName, accountID ORDER BY lastName)];
+        List<List<SObject>> queryResult = [FIND '*0*0*' IN Phone FIELDS 
+            RETURNING Account(name, FORMAT(SLAExpirationDate__c)), 
+                      Contact(firstName, lastName, accountID ORDER BY lastName)];
         /*
          * SOSL Information:
          * FIND 'search query': This is what you're looking for. A field you search for has to start with this query
 		 * IN {fields}: This is what fields you will be searching. This can be Name, Email, Phone or All. 
-		 * Default is All, which searches indexed Text, Text Area, or Text Area (Rich) fields as well
+		 * Default is All, which searches all fields that are searchable (no formula, roll-up summary, Text Area(Long), etc)
 		 * RETURNING: This is where you filter what you want to return. This is optional, but differs by object you want to return
 		 * WITH: This is an optional clause that can include or filter by many things, including:
 		 * 		DATA CATEGORY category: A filter for knowledge article data category
@@ -173,6 +194,23 @@ public class WorkingWithData {
 
         Most circumstances will have you use SOQL
     */
+
+    public void DynamicQuery(String query) {
+        // By using this method, we can dynamically construct a query from a string
+        List<sObject> dirtyQueryResult = Database.Query(query);
+        
+        // If we do so, this could result in SOQL injection
+        // We should use the String.EscapeSingleQuotes() method to defend against this
+        List<sObject> cleanQueryResult = Database.Query(String.EscapeSingleQuotes(query));
+        
+        // This is only a concern with user input strings
+        
+        // We can also perform dynamic SOSL, although this is handled using the Search class:
+        String soslString = 'FIND \'Edge\' IN All FIELDS RETURNING Account(name)';
+        List<List<sObject>> soslResult = Search.Query(soslString);
+        
+        System.debug(soslResult[0][0].get('name'));
+    }
     
     public static void DML() {
         
@@ -200,6 +238,7 @@ public class WorkingWithData {
         // - Delete
         // - Merge
         // - Upsert
+        // - Undelete
          
         List<Contact> myContactList = new List<Contact>();
         myContactList.add(new Contact(lastName = 'Valid Contact'));
@@ -207,9 +246,11 @@ public class WorkingWithData {
         
         Database.Insert(myContactList, false);
         
-        // Database methods allow the AllOrNothing parameter to me specified as false, allowing partial DML operations to be run
+        // Database methods allow the AllOrNothing parameter to be specified as false, allowing partial DML operations to be run
     }
     
+    // Per transaction governor limits: 
+    // https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm#transaction_gov_limits_section
     public static void GovernorLimits() {
         List<Contact> toInsert = new List<Contact>();
         for (Integer i = 0; i < 300; i++) {
@@ -227,6 +268,11 @@ public class WorkingWithData {
         for (Integer index = 0; index < myAccounts.Size(); index++) {
             myMap.put(myAccounts[index], myAccounts[lastPosition - index].Contacts);
         }
+
+        // 1. Pull DML and SOQL outside of loops
+        // 2. Use Collections for bulk DML
+        // 3. Use Maps to create relationships between otherwise unrelated records
+        // 4. Use SOQL For Loops (list version) when you have to use DML in a loop
     }
     
     public static void TCL() {
