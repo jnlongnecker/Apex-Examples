@@ -12,7 +12,6 @@
 // We have our base class as abstract as it will be extended and contains an abstract method
 public abstract class SObjectProcessor {
     
-    
     // We would like to make sure this value only gets incremented when a certain method is called, 
     // so we make this a private instance variable
     private Integer internalCounter = 0;
@@ -20,24 +19,25 @@ public abstract class SObjectProcessor {
     // This unprocessed list we will allow anyone to manipulate how they wish, so it's public.
     public List<sObject> unprocessedList {get; set;}
     
-    // We set this list to protected so that our child classes can access it
-    protected List<sObject> listToProcess {get; 
-    set {
+    // We set this list to public so anyone can see it, but set is protected so that only our child classes can access it
+    public List<sObject> listToProcess {get; 
+        protected set {
         
-        // We override the standard set method to the property to do data validation
-        if (value == null) {
-            listToProcess = new List<sObject>();
-            return;
-        }
+            // We override the standard set method to the property to do data validation
+            if (value == null) {
+                listToProcess = new List<sObject>();
+                return;
+            }
 
-        // We can do a deep copy of a list to change values in one list without affecting the other
-        listToProcess = new List<sObject>();
-        for (sObject obj : value) {
+            // We can do a deep copy of a list to change values in one list without affecting the other
+            listToProcess = new List<sObject>();
+            for (sObject obj : value) {
             
-            // The first boolean in clone() is whether to copy ID's, the second is whether to do a deep copy
-            listToProcess.add(obj.clone(true, true));
-        }
-    } }
+                // The first boolean in clone() is whether to copy ID's, the second is whether to do a deep copy
+                listToProcess.add(obj.clone(true, true));
+            }
+        } 
+    }
     
     // Let's say we want to track how many processors we make. We can use an initialization block and a static variable
     // to do so
