@@ -6,29 +6,33 @@
 
 // Best practice for triggers is to have 1 trigger per object
 // Because of this, we should set them up to be easily added to in the future
-trigger AccountTrigger on Account (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
+Trigger AccountTrigger on Account (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
     
+    // The System.Trigger class holds context variables about the executing trigger
+    // This isn't unique to Trigger files, and you can even check if you're in a trigger using Trigger.isExecuting.
+    // However, to keep things tidy you should really only use these in Trigger files
+
     // We should be able to handle every case
-    switch on trigger.operationType {
+    switch on Trigger.operationType {
         when BEFORE_INSERT { // Fires on Upsert
             // We use a handler class to keep our trigger logicless as a best practice
             // This makes it easier to maintain
-            AccountHandler.ValidateAccounts(trigger.new);
+            AccountHandler.ValidateAccounts(Trigger.new);
         }
         when BEFORE_UPDATE { // Fires on Upsert and Merge
-            
+            // Can use Trigger.old here
         }
         when BEFORE_DELETE { // Fires on Merge
-            // Must use trigger.old here
+            // Must use Trigger.old here
         }
         when AFTER_INSERT { // Fires on Upsert
-            AccountHandler.ChangeContacts(trigger.new);
+            AccountHandler.ChangeContacts(Trigger.new);
         }
         when AFTER_UPDATE { // Fires on Upsert and Merge
-            // Can use trigger.old here
+            // Can use Trigger.old here
         }
         when AFTER_DELETE { // Fires on Merge
-            // Can use trigger.old here
+            // Must use Trigger.old here
         }
         when AFTER_UNDELETE {
             
@@ -37,28 +41,28 @@ trigger AccountTrigger on Account (before insert, before update, before delete, 
     
     // Also acceptable:
     // -------------------------------------
-    if (trigger.isBefore) {
-        if (trigger.isInsert) {
+    if (Trigger.isBefore) {
+        if (Trigger.isInsert) {
             
         }
-        else if (trigger.isUpdate) {
+        else if (Trigger.isUpdate) {
             
         }
-        else if (trigger.isDelete) {
+        else if (Trigger.isDelete) {
             
         }
     }
-    else if (trigger.isAfter) {
-        if (trigger.isInsert) {
+    else if (Trigger.isAfter) {
+        if (Trigger.isInsert) {
             
         }
-        else if (trigger.isUpdate) {
+        else if (Trigger.isUpdate) {
             
         }
-        else if (trigger.isDelete) {
+        else if (Trigger.isDelete) {
             
         }
-        else if (trigger.isUndelete) {
+        else if (Trigger.isUndelete) {
             
         }
     }

@@ -188,6 +188,8 @@ public class MyFirstClass {
     }
 }
 
+// Create a class that takes in a list of names and creates a set of Accounts from those names
+
 /*
     For your reference, the operators and their precedence:
         == Precedence Group 1 == 

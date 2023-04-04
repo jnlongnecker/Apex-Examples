@@ -5,7 +5,7 @@ public class OrderHandler {
         Map<Account, List<Order>> accountMap = GetAccountMap(changedOrders);
         
         for (Account currAccount : accountMap.KeySet()) {
-            currAccount.haulWorth__c = CalculateTotalWorth(accountMap.get(currAccount));
+            //currAccount.haulWorth__c = CalculateTotalWorth(accountMap.get(currAccount));
             updatedAccounts.add(currAccount);
         }
 
@@ -17,7 +17,7 @@ public class OrderHandler {
         for (Order o : orders) {
             accountIDs.add(o.accountId);
         }
-        List<Account> relevantAccounts = [SELECT haulWorth__c, (SELECT totalAmount FROM Orders WHERE status = 'Activated') FROM Account WHERE id IN : accountIDs];
+        List<Account> relevantAccounts = [SELECT (SELECT totalAmount FROM Orders WHERE status = 'Activated') FROM Account WHERE id IN : accountIDs];
         Map<Account, List<Order>> accountMap = new Map<Account, List<Order>>();
         for (Account acc : relevantAccounts) {
             accountMap.put(acc, acc.Orders);

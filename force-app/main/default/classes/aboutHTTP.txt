@@ -1,0 +1,51 @@
+HTTP stands for HyperText Transfer Protocol
+- This means it's a methodology for sending hypertext documents over the internet
+- Hypertext is just a document that can link to another hypertext document
+    - Two examples important to us: HTML documents and JSON documents
+- Stateless, meaning that the server doesn't keep info about the request
+    - Does NOT mean server doesn't change as a result of the request
+- 2 parts: the Request and the Response
+- Request:
+    - HTTP method
+    - URL target
+    - HTTP version
+    - Headers (optional extra info)
+    - Optionally a body (additional resource)
+
+- Response:
+    - HTTP version
+    - Status Code (ex: 404)
+    - Status Message (ex: Not Found)
+    - Headers (info to detail what happened)
+    - Optionally a body (resource, usually what is requested)
+
+- It's widely used because of its flexibility, security, and for being lightweight
+- It's very simple to use (compared to other protocols)
+- It's extensible (you can change up the headers/method to change what the server does)
+
+HTTP uses several different methods (AKA verbs), we'll detail some here:
+- GET: Retrieves a resource at an endpoint
+- POST: Creates a new resource at an endpoint or updates a resource
+- PUT: Completely overwrites a resource at an endpoint (this can create OR update)
+- DELETE: Removes a resource at an endpoint
+- PATCH: Details instructions for partial update of a resource at an endpoint
+    - ex: To update a user, a PATCH only needs the part that changed but PUT and POST
+            require the whole resource
+
+GET, PUT, and DELETE are idempotent, which means identical callouts will not 
+affect the server. Non-idempotent methods like POST and (sometimes) PATCH will
+cause changes on identical callouts, so extra caution must be used. The difference
+between POST and PUT is that because POST is not idempotent, duplicate calls will
+cause duplicate resources created.
+
+HTTP status codes give information about the requests result:
+- 100-199: Informational
+    - EX: 102 Processing - Server is still working on the response
+- 200-299: Successful
+    - EX: 200 OK - Whatever you were trying to do worked
+- 300-399: Redirect
+    - EX: 301 Moved Permanently - The endpoint moved somewhere else
+- 400-499: Client Error
+    - EX: 401 Unauthorized - The user is not authorized to perform that action
+- 500-599: Server Error
+    - EX: 500 Internal Server Error - Server hit an unhandled exception

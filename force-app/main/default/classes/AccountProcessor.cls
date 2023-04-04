@@ -91,6 +91,7 @@ public class AccountProcessor extends SObjectProcessor implements Stringify {
         return 'Unprocessed value: ' + unprocessedValue + ', Processed value: ' + processedValue;
     }
     
+    /* Inner classes can be only 1 level deep. Defaults to private and cannot be more accessible than the class */
     public class InnerException extends System.Exception {
         // Here we have defined our own custom exception using an inner class
         // Using an inner class is not required to have a custom exception

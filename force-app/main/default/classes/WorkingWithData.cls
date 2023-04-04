@@ -64,12 +64,18 @@ public class WorkingWithData {
         // Can give fields an alias to reference them by, otherwise the name of the fields is expr#, starting with 0
         // Aggregate Functions
         // - AVG(), COUNT(), MIN(), MAX(), SUM(), COUNT_DISTINCT()
+        // - No fields can be included unless they are grouped or aggregated
         // - SELECT AVG(annualRevenue) FROM Account
+        // - SELECT AVG(annualRevenue) avg FROM Account - Alias
         // - GROUP BY
+        //   - Note that Rating CAN be included now
         //   - SELECT rating, AVG(annualRevenue) FROM Account GROUP BY rating
         // - HAVING
         //   - Filters the GROUP BY Clause
         //   - SELECT rating, FORMAT(AVG(annualRevenue)) FROM Account GROUP BY rating HAVING NOT rating = null
+
+        // Aggregate Functions can also return an Integer if you just specify COUNT() 
+        Integer numAccounts = [SELECT COUNT() FROM Account];
     }
     
     public static void DateFunctions() {
@@ -103,9 +109,8 @@ public class WorkingWithData {
             that includes a SOQL query inside of it instead of a particular list. What this is going to do is
             efficiently query the org for records, and is thus the best way of working with a large amount of records.
             Records take up a lot of space on the heap, and in order to stay within our memory limitations, whenever
-            possible use a SOQL for loop. Also because of this efficiency, a SOQL for loop can actually retrieve
-            more than 2,000 records. When it does this, an error will occur if you use an Aggregate Function on such
-            a query since they cannot handle that many records.
+            possible use a SOQL for loop. An error will occur if you use an Aggregate Function on a query that
+            returns more than 2,000 records
         */
         for (Account currAccount : [SELECT name, (SELECT name FROM Contacts) FROM Account]) {
             List<Contact> associatedContacts = currAccount.contacts;
@@ -166,10 +171,11 @@ public class WorkingWithData {
 		 * 		
 		 * 
 		 * There are more clauses to filter by, here are a few:
-		 * WHERE: Works like in SOQL, only returns records where a condition is met
-		 * LIMIT/OFFSET: Works like in SOQL, limits the records returned and offsets the start position
-		 * ORDER BY: Works like in SOQL, reorders the records by a field
+		 * WHERE: Works like in SOQL, only returns records where a condition is met. Objects
+		 * LIMIT/OFFSET: Works like in SOQL, limits the records returned and offsets the start position. Objects/Query
+		 * ORDER BY: Works like in SOQL, reorders the records by a field. Objects Only
 		 * USING: Filter records with a premade list view, like Recently Viewed or My Contacts
+     *      FIND 'Acme' IN Name FIELDS RETURNING Account(Name USING ListView=Recent)
          */
 
          List<Account> myAccountList = queryResult[0];
@@ -226,7 +232,7 @@ public class WorkingWithData {
         Delete toDelete;
 
         Insert myNewAccount;
-         
+        
         Account toUpdate = [SELECT name, rating FROM Account WHERE name = 'My Test Account' LIMIT 1];
         toUpdate.rating = 'Cold';
         Update toUpdate;

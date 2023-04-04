@@ -36,7 +36,7 @@ public class ScheduledApex implements Schedulable {
      * Day_of_Week accepts values 1-7 or the 3 letter abbreviation (SUN, MON, TUE, WED, THU, FRI, SAT)
      * Year accepts values 1970-2099, or it can be left unspecified
      * 
-     * EXAMPLE: String cron = '0 0 12 1 12 1'; 
+     * EXAMPLE: String cron = '0 0 12 1 12 1';
      * 			This expression fires on December 1st at 12:00pm if it happens to fall on a Sunday
      * 
      * Obviously, we need to be able to generalize a bit more, so we have special CRON syntax characters:

@@ -15,6 +15,13 @@ public class APICallout {
         - Easy to write and consume
         - Supports many kinds of data formats, including JSON and XML
         - Flexible and scalable
+
+        Principles of REST:
+        - Client-Server architecture through HTTP
+        - Uniform Interface (send back data in a standardized format)
+        - Statelessness (requests are independent)
+        - Layered System (system has other processes obfuscated from the user)
+        - Cacheability (allow caching of commonly accessed and static resources)
     */
 	
     // Making requests is much more straightforward with REST API's
@@ -29,20 +36,6 @@ public class APICallout {
         HttpRequest hRequest = new HttpRequest();
         hRequest.setEndpoint('https://pokeapi.co/api/v2/pokemon/' + pokemonName);
 
-        /*
-            HTTP uses several different methods, we'll detail some here again:
-            - GET: Retrieves a resource at an endpoint
-            - POST: Creates a new resource at an endpoint or updates a resource
-            - PUT: Completely overwrites a resource at an endpoint (this can create OR update)
-            - DELETE: Removes a resource at an endpoint
-            - PATCH: Details instructions for partial update of a resource at an endpoint
-
-            GET, PUT, and DELETE are idempotent, which means identical callouts will not 
-            affect the server. Non-idempotent methods like POST and (sometimes) PATCH will
-            cause changes on identical callouts, so extra caution must be used. The difference
-            between POST and PUT is that because POST is not idempotent, duplicate calls will
-            cause duplicate resources created. 
-        */
         hRequest.setMethod('GET');
         
         // Send the request and store the response
@@ -62,12 +55,17 @@ public class APICallout {
         // Parse JSON
         JSONParser parser = JSON.createParser(response.getBody());
         
+        // Can also convert the JSON to a map
+        Map<String, Object> jsonMap = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
+        
         // Parsing JSON is heavily dependent on the response you get
-        // Be aware REST can also return XML
+        // Be aware REST can also return other data formats
         String pkmName = '';
         while (parser.NextToken() != null) { // Tokens are fields, values, or syntax characters
             
             // Pick through field tokens
+            // Tokens can be FIELD_NAME, END_ARRAY, END_OBJECT, START_ARRAY, START_OBJECT, NOT_AVAILABLE, or the data type
+            // Data type values: VALUE_FALSE, VALUE_EMBEDDED_OBJECT, VALUE_TRUE, VALUE_STRING, VALUE_NULL, VALUE_NUMBER_INT, VALUE_NUMBER_FLOAT, VALUE_STRING
             if (parser.getCurrentToken() == JSONToken.FIELD_NAME) {
                 switch on parser.getText() {
                     when 'ability' {
@@ -94,6 +92,30 @@ public class APICallout {
                     }
                 }
             }
+        }
+        
+        // If parsing isn't your jam, use the mapped values
+        String name = (String)jsonMap.get('name');
+        List<Object> pkmTypes = (List<Object>)jsonMap.get('types');
+        Integer exp = Integer.valueOf(jsonMap.get('base_experience'));
+        List<Object> abilities = (List<Object>)jsonMap.get('abilities');
+        
+        // These are easy for surface values, but values in embedded objects can be nasty
+        System.debug('Pokemon name: ' + name);
+        System.debug('Base experience: ' + exp);
+        for (Object ability : abilities) {
+            String jString = JSON.serialize(ability);
+            Map<String, Object> abilityMap = (Map<String, Object>)JSON.deserializeUntyped(jString);
+            jString = JSON.serialize(abilityMap.get('ability'));
+            Map<String, Object> abilityData = (Map<String, Object>)JSON.deserializeUntyped(jString);
+            System.debug('Ability: ' + abilityData.get('name'));
+        }
+        for (Object pkmType : pkmTypes) {
+            String jString = JSON.serialize(pkmType);
+            Map<String, Object> typeMap = (Map<String, Object>)JSON.deserializeUntyped(jString);
+            jString = JSON.serialize(typeMap.get('type'));
+            Map<String, Object> typeData = (Map<String, Object>)JSON.deserializeUntyped(jString);
+            System.debug('Type: ' + typeData.get('name'));
         }
     }
 }

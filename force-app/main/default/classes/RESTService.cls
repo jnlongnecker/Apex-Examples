@@ -5,8 +5,8 @@
 */
 
 // The urlMapping tells us what URL to go to get this resource
-// This one is https://myOrg.my.salesforce.com/services/apexrest/learning/
-@restResource(urlMapping='/learning/')
+// This one is https://wise-shark-uizz3p-dev-ed.trailblaze.my.salesforce.com/services/apexrest/learning
+@restResource(urlMapping='/learning')
 global class RESTService {
 	
     // Instead of webservice, we use global and annotate with the corresponding HTTP method
